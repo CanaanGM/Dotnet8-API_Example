@@ -1,4 +1,8 @@
 
+using Core;
+
+using Infrastructure;
+
 namespace API;
 
 public class Program
@@ -13,6 +17,11 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        // adding other projects to the IoC container
+        builder.Services
+            .RegisterCoreServices()
+            .RegisterInfrastructureServices();
 
         var app = builder.Build();
 
