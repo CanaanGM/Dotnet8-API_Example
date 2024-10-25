@@ -1,4 +1,6 @@
-﻿using Core.Models;
+﻿// Ignore Spelling: Todo sqlite
+
+using Core.Models;
 
 using Infrastructure.DatabaseContexts;
 

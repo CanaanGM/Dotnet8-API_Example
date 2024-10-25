@@ -3,6 +3,7 @@
 using Infrastructure.DatabaseContexts;
 using Infrastructure.Services;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,15 +16,15 @@ public static class DependencyInjection
         services.AddDbContext<SqliteContext>();
         services.AddScoped<ITodoService, TodoService>();
 
-        services.AddIdentityCore<ApplicationUser>(options =>
+        services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
         })
-          .AddRoles<ApplicationRole>()
-          .AddEntityFrameworkStores<SqliteContext>()
-          .AddUserStore<UserStore<ApplicationUser, ApplicationRole, SqliteContext, Guid>>()
-          .AddRoleStore<RoleStore<ApplicationRole, SqliteContext, Guid>>()
-          ;
+            .AddEntityFrameworkStores<SqliteContext>()
+            .AddDefaultTokenProviders()
+            .AddUserStore<UserStore<ApplicationUser, ApplicationRole, SqliteContext, Guid>>()
+            .AddRoleStore<RoleStore<ApplicationRole, SqliteContext, Guid>>();
+
 
         return services;
     }

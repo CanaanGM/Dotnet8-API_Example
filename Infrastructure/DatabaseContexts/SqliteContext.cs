@@ -1,10 +1,13 @@
-﻿using Core.Models;
+﻿// Ignore Spelling: Sqlite
+
+using Core.Identity;
+using Core.Models;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DatabaseContexts;
-public class SqliteContext : IdentityDbContext
+public class SqliteContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public SqliteContext(DbContextOptions<SqliteContext> options) : base(options)
     {

@@ -1,9 +1,13 @@
-﻿using Infrastructure.Services;
+﻿// Ignore Spelling: Todos todo
 
+using Infrastructure.Services;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class CustomBaseController : ControllerBase
@@ -14,6 +18,7 @@ public class CustomBaseController : ControllerBase
     {
         _todoService = todoService;
     }
+
 
     [HttpGet("todos")]
     public async Task<IActionResult> GetAllTodosAsync(CancellationToken cancellationToken)
