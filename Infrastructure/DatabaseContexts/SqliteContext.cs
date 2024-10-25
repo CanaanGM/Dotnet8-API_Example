@@ -1,9 +1,10 @@
 ﻿using Core.Models;
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DatabaseContexts;
-public class SqliteContext : DbContext
+public class SqliteContext : IdentityDbContext
 {
     public SqliteContext(DbContextOptions<SqliteContext> options) : base(options)
     {
