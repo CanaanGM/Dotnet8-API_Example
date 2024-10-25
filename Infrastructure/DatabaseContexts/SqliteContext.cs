@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Models;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DatabaseContexts;
 public class SqliteContext : DbContext
@@ -12,14 +14,17 @@ public class SqliteContext : DbContext
 
     }
 
+    public DbSet<ToDo> ToDoes { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlite(@"E:\development\c#\AuthenticationExample\Database\Authentication_Example.sqlite");
+        optionsBuilder.UseSqlite(@"Data Source = E:\development\c#\AuthenticationExample\Database\Authentication_Example.sqlite");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<ToDo>().ToTable("todos");
     }
 }
