@@ -46,18 +46,28 @@ public static class DependencyInjection
 
             //* for debugging, this comes in handy: 
 
+
             options.Events = new JwtBearerEvents
             {
                 OnMessageReceived = context =>
                 {
-                    var authHeader = $"{context.Request.Headers["Authorization"]}";
-                    var receivedTokenFromClient = authHeader.Split(' ')[1];
-                    var validTokenForTesting = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZTg3NTQ0MS03NDUwLTRjODctYTcwYS03NTQwZjIwNjYyOTEiLCJqdGkiOiIzYjcyODA2My05NWUwLTRmOTUtYTIwNi1iZjA3ZDAzZTE4MTEiLCJpYXQiOjE3Mjk3NTY0MTksImVtYWlsIjoiY2FuYWFuQHRlc3QuY29tIiwibmFtZWlkIjpbImNhbmFhbkB0ZXN0LmNvbSIsImNhbmFhbkB0ZXN0LmNvbSJdLCJuYmYiOjE3Mjk3NTY0MTksImV4cCI6MTcyOTgzNzQxOSwiaXNzIjoiaXQgaXMgSSIsImF1ZCI6Ik15IEF1ZGllbmNlIn0.TY0qcQZoqwc90oMM-YWyzYtqoQVB2JWRCJ5tdKI8v71iLEZ5k6Dtp24UHIbA0tbUMZPwDHrZyQQjBRwMxp7a9A";
+                    try
+                    {
 
-                    //context.Token = validTokenForTesting;
-                    Console.WriteLine(receivedTokenFromClient == validTokenForTesting);
-                    Console.WriteLine($"Received Token: {receivedTokenFromClient}");
-                    Console.WriteLine($"Hardcoded Token: {validTokenForTesting}");
+                        var authHeader = $"{context.Request.Headers["Authorization"]}";
+                        var receivedTokenFromClient = authHeader.Split(' ')[1];
+                        //var validTokenForTesting = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZTg3NTQ0MS03NDUwLTRjODctYTcwYS03NTQwZjIwNjYyOTEiLCJqdGkiOiIzYjcyODA2My05NWUwLTRmOTUtYTIwNi1iZjA3ZDAzZTE4MTEiLCJpYXQiOjE3Mjk3NTY0MTksImVtYWlsIjoiY2FuYWFuQHRlc3QuY29tIiwibmFtZWlkIjpbImNhbmFhbkB0ZXN0LmNvbSIsImNhbmFhbkB0ZXN0LmNvbSJdLCJuYmYiOjE3Mjk3NTY0MTksImV4cCI6MTcyOTgzNzQxOSwiaXNzIjoiaXQgaXMgSSIsImF1ZCI6Ik15IEF1ZGllbmNlIn0.TY0qcQZoqwc90oMM-YWyzYtqoQVB2JWRCJ5tdKI8v71iLEZ5k6Dtp24UHIbA0tbUMZPwDHrZyQQjBRwMxp7a9A";
+
+                        //context.Token = validTokenForTesting;
+                        //Console.WriteLine(receivedTokenFromClient == validTokenForTesting);
+                        Console.WriteLine($"Received Token: {receivedTokenFromClient}");
+                        //Console.WriteLine($"Hardcoded Token: {validTokenForTesting}");
+                    }
+                    catch (Exception)
+                    {
+
+                        Console.WriteLine("there was no Token to interrogate");
+                    }
                     return Task.CompletedTask;
                 },
                 OnAuthenticationFailed = context =>
@@ -66,6 +76,8 @@ public static class DependencyInjection
                     return Task.CompletedTask;
                 }
             };
+
+
         });
         Console.WriteLine("what ?!");
         return services;

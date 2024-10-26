@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Core.DTO.Authentication;
-public class LoginDTO
+public class LoginRequest
 {
     [Required(ErrorMessage = "Email can't be blank")]
     [EmailAddress(ErrorMessage = "Provide a valid email please")]

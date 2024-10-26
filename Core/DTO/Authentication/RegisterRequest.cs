@@ -3,7 +3,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.DTO.Authentication;
-public class RegisterDTO
+public class RegisterRequest
 {
     [Required(ErrorMessage = "User Name can't be blank")]
     public string DisplayName { get; set; } = string.Empty;
