@@ -14,9 +14,7 @@ namespace API.Controllers.Auth;
 
 
 [AllowAnonymous]
-[ApiController]
-[Route("api/[controller]")]
-public class AccountController : ControllerBase
+public class AccountController : CustomBaseController
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
