@@ -49,24 +49,13 @@ public class Program
         // API version
         builder.Services.AddApiVersioning(settings =>
         {
-            //Reads version number from request url at "apiVersion" constraint
             settings.ApiVersionReader = new UrlSegmentApiVersionReader();
-
-            //Reads version number from request query string called "api-version".
-            //Eg: api-version=1.0
-            //settings.ApiVersionReader = new QueryStringApiVersionReader();
-            //Reads version number from request header called "api-version".
-
-            // Eg: api-version: 1.0
-            //settings.ApiVersionReader = new HeaderApiVersionReader("api-version");
-
-
             settings.DefaultApiVersion = new ApiVersion(1, 0);
             settings.AssumeDefaultVersionWhenUnspecified = true;
         })
             .AddApiExplorer(settings =>
             {
-                settings.GroupNameFormat = "'v'VVV"; // api/v[NUMBER]/controller
+                settings.GroupNameFormat = "'v'VVV";
                 settings.SubstituteApiVersionInUrl = true;
             })
             ;

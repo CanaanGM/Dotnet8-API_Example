@@ -11,7 +11,7 @@
     - so, even in DB 1st approach, you'd only need this layer to scaffold the db.
 - API versioning is thru the url `api/v[number]/controller`
 - API overrides `ProblemDetailsFactory` to add in custom properties
-
+- docker / docker compose for later, i wanna test nginx, https inside the container and other things.
 
 ### Notes
 
