@@ -1,5 +1,7 @@
 ﻿// Ignore Spelling: jwt
 
+using API.Controllers.v1;
+
 using Core.DTO.Authentication;
 using Core.Identity;
 using Core.Services;
@@ -223,5 +225,17 @@ public class AccountController : CustomBaseController
         return Ok(newJwtToken);
     }
 
+    /// <summary>
+    /// Throws an exception to test the Custom Problem details
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    [HttpGet("throw~!")]
+
+    public Task<IActionResult> TestProblemDetails(CancellationToken cancellationToken)
+    {
+        throw new Exception("Something intentionally went Wrong ~!");
+    }
 
 }

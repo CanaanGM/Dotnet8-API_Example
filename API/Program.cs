@@ -1,4 +1,7 @@
 
+using API.Common.Errors;
+using API.Middleware;
+
 using Asp.Versioning;
 
 using Core;
@@ -8,6 +11,7 @@ using Infrastructure.DatabaseContexts;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace API;
@@ -28,7 +32,10 @@ public class Program
             options.Filters.Add(new AuthorizeFilter(policy));
         });
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(settings =>
+        {
+            settings.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "API_EXAMPLE.xml"));
+        });
 
 
         // adding other projects to the IoC container
@@ -37,6 +44,7 @@ public class Program
             .RegisterCoreServices(builder.Configuration)
             ;
 
+        builder.Services.AddSingleton<ProblemDetailsFactory, ApplicationProblemDetailsFactory>();
 
         // API version
         builder.Services.AddApiVersioning(settings =>
@@ -66,7 +74,6 @@ public class Program
 
         var app = builder.Build();
 
-
         //migrations 
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<SqliteContext>();
@@ -80,22 +87,15 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.Use(async (context, next) =>
-        {
-            Console.WriteLine("Incoming Request Headers:");
-            foreach (var header in context.Request.Headers)
-            {
-                Console.WriteLine($"{header.Key}: {header.Value}");
-            }
-            await next.Invoke();
-        });
 
 
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseMiddleware<ExceptionMiddleware>();
 
 
         app.MapControllers();
+
 
         app.Run();
     }

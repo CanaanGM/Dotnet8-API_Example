@@ -9,6 +9,8 @@
 - options pattern for reading the settings for both `JWT` and `RefreshToken` Settings from `appsettings.json`
 - Infrastructure layer references `Design` so it can create it's own migrations
     - so, even in DB 1st approach, you'd only need this layer to scaffold the db.
+- API versioning is thru the url `api/v[number]/controller`
+- API overrides `ProblemDetailsFactory` to add in custom properties
 
 
 ### Notes
@@ -16,6 +18,7 @@
 - refresh tokens re issue is the responsibility of the client, having a middleware do that will add considerable overhead to the app.
 - using identity to handle user related operations save a lot of time.
 - always check the order of the middleware xD
+- in the ErrorMiddleware middleware, using newtonsoft will not serialize the way you'd think.
 
 
 
