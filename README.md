@@ -1,4 +1,4 @@
-# AuthenticationExample
+# API Example
 
 > meant to be a reference for me for creating apis.
 > check the commit history for incremental steps.
